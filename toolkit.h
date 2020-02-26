@@ -61,7 +61,7 @@ typedef	double	n_double;
 #define SINE_MAXIMUM (26880)
 
 #define BIG_INTEGER          (2147483647)
-#define BIG_NEGATIVE_INTEGER (-2147483648)
+#define BIG_NEGATIVE_INTEGER (0-2147483648)
 
 #define NOTHING (0L)
 
@@ -408,9 +408,9 @@ void vect2_rotation(n_vect2 * location, n_vect2 * rotation);
 void vect2_rotation_bitshift(n_vect2 * location, n_vect2 * rotation);
 
 n_int vect2_nonzero(n_vect2 * nonzero);
-#ifndef _WIN32
+
 n_vect2 * vect2_min_max_init(void);
-#endif
+
 void vect2_min_max(n_vect2 * points, n_int number, n_vect2 * maxmin);
 
 void vect2_scalar_multiply(n_vect2 * value, n_int multiplier);
