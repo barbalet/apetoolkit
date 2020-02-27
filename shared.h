@@ -36,15 +36,7 @@
 #ifndef SIMULATEDAPE_SHARED_H
 #define SIMULATEDAPE_SHARED_H
 
-#ifndef	_WIN32
-
 #include "toolkit.h"
-
-#else
-
-#include "toolkit.h"
-
-#endif
 
 typedef enum
 {
