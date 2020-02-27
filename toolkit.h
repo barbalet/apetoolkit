@@ -590,5 +590,93 @@ n_int io_bytes_to_int(n_byte * bytes);
 #define ABS(a)	                        (((a) < 0) ? -(a) : (a))
 #endif
 
+
+typedef    short    n_audio;
+
+#define AUDIO_FFT_MAX_BITS      (15)
+#define AUDIO_FFT_MAX_BUFFER    (1<<AUDIO_FFT_MAX_BITS)
+
+void audio_fft(n_byte inverse, n_uint power_sample);
+void audio_new_fft(n_uint       power_sample,
+                   n_int      InverseTransform,
+                   n_double    *RealIn,
+                   n_double    *ImagIn,
+                   n_double    *RealOut,
+                   n_double    *ImagOut );
+void   audio_clear_buffers(n_uint length);
+void   audio_clear_output(n_audio * audio, n_uint length);
+
+void   audio_equal_output(n_audio * audio, n_uint length);
+
+void   audio_multiply_output(n_audio * audio, n_uint length);
+void   audio_set_frequency(n_uint entry, n_uint value);
+
+void   audio_low_frequency(n_audio * buffer, n_int number_freq, n_int debug);
+
+void audio_buffer_clear(n_audio * buffer, n_int size);
+void audio_buffer_double_clear(n_double * buffer, n_int size);
+
+void audio_buffer_copy_to_audio(n_double * buffer_double, n_audio * buffer_audio, n_int size);
+void audio_buffer_copy_to_double(n_audio * buffer_audio, n_double * buffer_double, n_int size);
+void audio_buffer_copy_to_double_double(n_double * buffer_double1, n_double * buffer_double2, n_int size);
+void audio_buffer_copy_to_double_double(n_double * buffer_double_to, n_double * buffer_double_from, n_int size);
+
+void graph_init(n_int four_byte_factory);
+
+void graph_erase(n_byte * buffer, n_vect2 * img, n_rgba32 * color);
+
+/* draws a line */
+void graph_line(n_byte * buffer,
+                n_vect2 * img,
+                n_vect2 * previous,
+                n_vect2 * current,
+                n_rgba32 * color,
+                n_byte thickness);
+
+void graph_curve(n_byte * buffer,
+                 n_vect2 * img,
+                 n_vect2 * pt0,
+                 n_vect2 * pt1,
+                 n_vect2 * pt2,
+                 n_rgba32 * color,
+                 n_byte radius_percent,
+                 n_uint start_thickness,
+                 n_uint end_thickness);
+
+void graph_fill_polygon(n_vect2 * points, n_int no_of_points,
+                        n_rgba32 * color, n_byte transparency,
+                        n_byte * buffer, n_vect2 * img);
+
+
+typedef n_string (n_console_input)(n_string value, n_int length);
+
+typedef void (n_console_output)(n_constant_string value);
+
+typedef n_int (n_console)(void * ptr, n_string response, n_console_output output_function);
+
+typedef struct
+{
+    n_console * function;
+    n_string    command;
+    n_string    addition;
+    n_string    help_information;
+} simulated_console_command;
+
+void       audio_aiff_header(void * fptr, n_uint total_samples);
+n_int      audio_aiff_is_header(void * fptr, n_uint *samples);
+
+void       audio_aiff_body(void * fptr, n_audio *samples, n_uint number_samples);
+
+n_int      io_quit(void * ptr, n_string response, n_console_output output_function);
+n_int      io_help(void * ptr, n_string response, n_console_output output_function);
+n_string   io_console_entry_clean(n_string string, n_int length);
+n_string   io_console_entry(n_string string, n_int length);
+void       io_console_out(n_constant_string value);
+n_int      io_console(void * ptr, simulated_console_command * commands, n_console_input input_function, n_console_output output_function);
+
+void       io_help_line(simulated_console_command * specific, n_console_output output_function);
+
+void       io_console_quit(void);
+
 #endif /* _TOOLKIT_H_ */
 
